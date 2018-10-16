@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col">
+    <app-items-list class="bordered" [items]="playlist" (selectedChange)="select($event)" [selected]="selected"></app-items-list>
+  </div>
+  <div class="col">
+    <app-playlist-details (playlistChange)="save($event)" *ngIf="selected" [playlist]="selected"></app-playlist-details>
+  </div>
+</div>

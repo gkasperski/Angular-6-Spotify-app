@@ -1,0 +1,28 @@
+<div *ngIf="edit">
+  <dl>
+    <dt>Name: </dt>
+    <dd> {{ playlist.name }}</dd>
+    <dt>Favourite: </dt>
+    <dd> {{ playlist.favourite }} </dd>
+    <dt>Color: </dt>
+    <dd [style.background]="playlist.color"> {{ playlist.color }} </dd>
+  </dl>
+  <input type="button" value="edit" (click)="enableEdition()"/>  
+</div>
+
+<form *ngIf="!edit" #formRef="ngForm" (ngSubmit)="save(formRef)">
+  <div class="form-group">
+    <label for="">Name: </label>
+    <input type="text" class="form-control" [ngModel]="playlist.name" name="name">
+  </div>
+  <div class="form-group">
+    <label for="">Favourite: </label>
+    <input type="checkbox" class="form-control" [ngModel]="playlist.favourite" name="favourite">
+  </div>
+  <div class="form-group">
+    <label for="">Color: </label>
+    <input type="color" class="form-control" [ngModel]="playlist.color" name="color">
+  </div>
+  <input type="submit" class="btn btn-success" value="Save"/>
+  <input type="button" class="btn btn-danger" value="Cancel" (click)="onCancelButtonClick()"/>
+</form>

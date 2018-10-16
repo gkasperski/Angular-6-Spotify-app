@@ -1,0 +1,13 @@
+:host(.bordered) {
+  display: block;
+  border: 1px solid black;
+}
+
+:host-context(.colored) {
+  color: hotpink;
+}
+
+.list-group-item {
+  border: 0px;
+  border-left: 4px solid;
+}
