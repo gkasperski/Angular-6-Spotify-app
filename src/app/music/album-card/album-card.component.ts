@@ -13,7 +13,7 @@ export class AlbumCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.card);
+    //console.log(this.card);
   }
 
 }

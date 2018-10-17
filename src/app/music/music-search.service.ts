@@ -1,9 +1,8 @@
 import { Injectable, Inject, InjectionToken } from "@angular/core";
-import { Album, AlbumsResponse } from '../model/Album';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { SecurityService } from '../security/security.service';
-import { map, catchError } from 'rxjs/operators';
-import { empty } from "rxjs";
+import { AlbumsResponse } from "../model/Album";
+import { HttpClient} from "@angular/common/http";
+import { SecurityService } from "../security/security.service";
+import { map } from "rxjs/operators";
 
 export const SEARCH_API_URL = new InjectionToken<string>(
   "Search API URL TOKEN"
@@ -21,24 +20,16 @@ export class MusicSearchService {
 
   //getAlbums = () => this.albums;
 
-  getAlbums(query = 'witcher 3') {
-    return this.http.get<AlbumsResponse>(this.api_url, {
-      headers: {
-        Authorization: `Bearer ${this.security.getToken()}`
-      },
-      params: {
-        q: query,
-        type: "album"
-      }
-    }).pipe(
-      map(resp => resp.albums.items),
-      catchError((error, caught) => {
-        if (error instanceof HttpErrorResponse && error.status === 401) {
-          this.security.authorize();
+  getAlbums(query = "witcher 3") {
+    return this.http
+      .get<AlbumsResponse>(this.api_url, {
+        params: {
+          q: query,
+          type: "album"
         }
-        // return empty();
       })
-    )
+      .pipe(
+        map(resp => resp.albums.items),
+      );
   }
-
 }

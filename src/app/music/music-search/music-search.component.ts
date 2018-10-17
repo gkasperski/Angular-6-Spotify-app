@@ -20,7 +20,7 @@ export class MusicSearchComponent implements OnInit {
   }
 
   search(query: string) {
-    console.log(query);
+    //console.log(query);
     this.service.getAlbums(query).subscribe(response => {
       this.albums = response;
     });
