@@ -21,13 +21,13 @@ export class MusicSearchService {
 
   //getAlbums = () => this.albums;
 
-  getAlbums() {
+  getAlbums(query = 'witcher 3') {
     return this.http.get<AlbumsResponse>(this.api_url, {
       headers: {
         Authorization: `Bearer ${this.security.getToken()}`
       },
       params: {
-        q: "witcher 3",
+        q: query,
         type: "album"
       }
     }).pipe(

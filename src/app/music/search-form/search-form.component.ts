@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, AbstractControl, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { filter, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
@@ -11,9 +11,11 @@ export class SearchFormComponent implements OnInit {
 
   queryForm: FormGroup;
 
+  @Output() queryChange = new EventEmitter();
+
   constructor(private builder: FormBuilder) {
     this.queryForm = this.builder.group({
-      query: ['witcher 3'],
+      query: [],
       // options: new FormGroup({
       //   type: new FormControl('new type'),
       //   markets: new FormArray([
@@ -26,9 +28,9 @@ export class SearchFormComponent implements OnInit {
     const value$ = this.queryForm.get('query').valueChanges;
     value$
     .pipe(
-      filter(query => query.length >= 3),
+      debounceTime(400),
       distinctUntilChanged(),
-      debounceTime(400)
+      filter(query => query.length >= 3),
     )
     .subscribe(query => {
       this.search(query);
@@ -41,6 +43,6 @@ export class SearchFormComponent implements OnInit {
   }
 
   search(query: string) {
-    console.log(query);
+    this.queryChange.emit(query);
   }
 }
