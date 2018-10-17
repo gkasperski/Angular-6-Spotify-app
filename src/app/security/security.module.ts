@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthConfig } from './security.service';
+import { AuthConfig, SecurityService } from './security.service';
 import { environment } from '../../environments/environment';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './auth-interceptor.service';
@@ -22,4 +22,8 @@ import { AuthInterceptorService } from './auth-interceptor.service';
     }
   ]
 })
-export class SecurityModule { }
+export class SecurityModule { 
+  constructor(private security: SecurityService) {
+    this.security.getToken();
+  }
+}

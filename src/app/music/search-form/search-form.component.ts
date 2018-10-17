@@ -49,7 +49,6 @@ export class SearchFormComponent implements OnInit {
       return Observable.create(
         (observer: Observer<ValidationErrors | null>) => {
           const hasError = (control.value as string).includes(badword);
-          console.log(badword);
           const handler = setTimeout(() => {
             observer.next(
               hasError
