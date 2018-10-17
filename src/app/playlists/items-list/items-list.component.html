@@ -1,16 +1,6 @@
 <div class="list-group">
-  <div class="list-group-item" *ngFor="let item of items; let i = index; trackBy trackByFn"
-  
-  (mouseenter)="hover = item" 
-  (mouseleave)="hover = null"
-  [class.active] = "selected == item" 
-  (click) = "select(item)" 
-  
-  [ngStyle]="{
-      'borderColor': hover == item  ? item.color : 'black'
-    }" 
-  [appHighlight]="item.color"
-    >
+  <div class="list-group-item" *ngFor="let item of items; let i = index; trackBy trackByFn" [class.active]="selected == item"
+    (click)="select(item)" [appHighlight]="item.color">
     {{ i + 1 }}. {{item.name}}
     <!-- <app-list-item [item]="item"></app-list-item> -->
   </div>

@@ -20,7 +20,7 @@ export class ItemsListComponent<T extends Item> implements OnInit {
   selectedChange = new EventEmitter<T>();
 
   @Input()
-  selected: T = null;
+  selected: any = null;
 
   constructor() { }
 

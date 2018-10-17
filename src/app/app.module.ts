@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlaylistsModule } from './playlists/playlists.module';
+import { MusicModule } from './music/music.module';
+import { SecurityModule } from './security/security.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { PlaylistsModule } from './playlists/playlists.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PlaylistsModule
+    PlaylistsModule,
+    MusicModule,
+    SecurityModule
   ],
   providers: [],
   bootstrap: [AppComponent],
