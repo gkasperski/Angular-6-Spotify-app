@@ -1,8 +1,9 @@
 import { Injectable, Inject, InjectionToken } from "@angular/core";
 import { Album, AlbumsResponse } from '../model/Album';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { SecurityService } from '../security/security.service';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { empty } from "rxjs";
 
 export const SEARCH_API_URL = new InjectionToken<string>(
   "Search API URL TOKEN"
@@ -12,18 +13,6 @@ export const SEARCH_API_URL = new InjectionToken<string>(
   providedIn: "root"
 })
 export class MusicSearchService {
-  albums: Album[] = [
-    {
-      id: "123",
-      name: "Ala ma kota",
-      images: [
-        {
-          url: "http://placekitten.com/300/300"
-        }
-      ]
-    }
-  ];
-
   constructor(
     @Inject(SEARCH_API_URL) private api_url: string,
     private http: HttpClient,
@@ -43,6 +32,12 @@ export class MusicSearchService {
       }
     }).pipe(
       map(resp => resp.albums.items),
+      catchError((error, caught) => {
+        if (error instanceof HttpErrorResponse && error.status === 401) {
+          this.security.authorize();
+        }
+        // return empty();
+      })
     )
   }
 
