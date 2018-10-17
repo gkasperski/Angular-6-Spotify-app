@@ -1,7 +1,5 @@
 <div class="input-group mb-3" [formGroup]="queryForm">
-  <input type="text" class="form-control" placeholder="Search"
-   formControlName="query"
-  >
+  <input type="text" class="form-control" placeholder="Search" formControlName="query">
 
   <!-- [formControl]="queryForm.get('query')" -->
   <!-- <div class="input-group-append">
@@ -14,3 +12,11 @@
     <input type="text" class="form-control" [formControl]="field">
   </div> -->
 </div>
+<ng-container *ngIf="queryForm.get('query') as field">
+  <ng-container *ngIf="field.dirty && field.invalid">
+    <div *ngIf="field.getError('required')">Field is required</div>
+    <div *ngIf="field.getError('minlength') as error">Minimum {{ error.requiredLength }} letters</div>
+    <div *ngIf="field.getError('censor') as error">Bad word {{ error.badword }} </div>
+  </ng-container>
+
+</ng-container>
